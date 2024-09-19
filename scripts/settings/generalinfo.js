@@ -20,14 +20,18 @@ async function generalinfo() {
 
         const countvalue = (data) => {
             let total = 0;
-            if (Array.isArray(data)) {
-                total += data[key].length;
+            if (typeof data === 'object' && data !== null) {
+                for (const key in data) {
+                    if (Array.isArray(data[key])) {
+                        total += data[key].length;
+                    }
+                }
             }
-        }
             return total;
         };
         
         const totalvalues = countvalue(proxydata);
+        console.log('All:', totalvalues);
         document.getElementById('infoprox').textContent = `Proxies: ${totalvalues}`;
     } catch (error) {
         console.error('Err', error);
